@@ -8,6 +8,10 @@ namespace CodeFight
     class Intro
     {
         /// <summary>
+        /// https://codefights.com/arcade/intro/level-10
+        /// This is the solution to the Arcade challenges from 1 to 60
+        /// 
+        /// 
         /// Solutions to Edge of the Ocean (Intro)
         /// </summary>
         int adjacentElementsProduct(int[] inputArray)
@@ -998,7 +1002,117 @@ namespace CodeFight
         }
         string buildPalindrome(string st)
         {
-            
+            int count = 0;
+            for (int i = 0; i < st.Length / 2; i++)
+            {
+                if (st[i] == st[st.Length - i - 1])
+                {
+                    count++;
+                }
+            }
+            if (count == st.Length / 2)
+            {
+                return st;
+            }
+
+            string current = st;
+            for (int i = 0; i < st.Length; i++)
+            {
+                string temp = current;
+                for (int j = 0; j < i; j++)
+                {
+                    temp += st[i - j - 1];
+                }
+                count = 0;
+                for (int k = 0; k < temp.Length / 2; k++)
+                {
+                    if (temp[k] == temp[temp.Length - k - 1])
+                    {
+                        count++;
+                    }
+                }
+                if (count == temp.Length / 2)
+                {
+                    return temp;
+                }
+            }
+            return "";
         }
+        int electionsWinners(int[] votes, int k)
+        {
+            int biggest = votes.Max();
+            int counter = 0;
+            int biggestNumbers = 0;
+            foreach (var item in votes)
+            {
+                if (item == biggest)
+                {
+                    biggestNumbers++;
+                }
+                if (biggest < item + k)
+                {
+                    counter++;
+                }
+            }
+            if (biggestNumbers == 1 && counter == 0)
+            {
+                return 1;
+            }
+            return counter;
+        }
+        bool isMAC48Address(string inputString)
+        {
+            string[] temp = inputString.Split('-');
+            string regex = "^[0-9A-F]";
+            if (temp.Length != 6)
+            {
+                return false;
+            }
+            foreach (var item in temp)
+            {
+                if (item.Length != 2)
+                    return false;
+                foreach (var item2 in item)
+                {
+                    if (!System.Text.RegularExpressions.Regex.IsMatch(item2.ToString(), regex))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        /// <summary>
+        /// Solutions to Rainbow of Clarity (Intro)
+        /// </summary>
+        bool isDigit(char symbol)
+        {
+            return char.IsDigit(symbol);
+        }
+        string lineEncoding(string s)
+        {
+            string result = "";
+            Dictionary<char, int> letters = new Dictionary<char, int>();
+            foreach (var item in s)
+            {
+                if (letters.ContainsKey(item))
+                {
+                    letters[item] += 1;
+                }
+                else
+                    letters.Add(item, 1);
+            }
+            var temp = letters.ToList();
+            
+            foreach (var item in temp)
+            {
+                result += item.Value + "" + item.Key;
+            }
+            return result;
+        }
+
+
+
+
     }
 }
