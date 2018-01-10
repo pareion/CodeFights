@@ -1092,24 +1092,37 @@ namespace CodeFight
         string lineEncoding(string s)
         {
             string result = "";
-            Dictionary<char, int> letters = new Dictionary<char, int>();
-            foreach (var item in s)
+            int count = 1;
+            char previous = s[0];
+
+            for (int i = 1; i < s.Length; i++)
             {
-                if (letters.ContainsKey(item))
+                if (s[i] == previous)
                 {
-                    letters[item] += 1;
+                    count++;
                 }
                 else
-                    letters.Add(item, 1);
+                {
+                    if (count > 1)
+                        result += count + "" + previous;
+                    else
+                        result += previous;
+                    previous = s[i];
+                    count = 1;
+                }
             }
-            var temp = letters.ToList();
-            
-            foreach (var item in temp)
-            {
-                result += item.Value + "" + item.Key;
-            }
+            if (count > 1)
+                result += count + "" + previous;
+            else
+                result += previous;
+
             return result;
         }
+        int chessKnight(string cell)
+        {
+            
+        }
+
 
 
 
