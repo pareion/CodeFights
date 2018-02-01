@@ -1103,13 +1103,462 @@ namespace CodeFight
                     letters.Add(item, 1);
             }
             var temp = letters.ToList();
-            
+
             foreach (var item in temp)
             {
                 result += item.Value + "" + item.Key;
             }
             return result;
         }
+        int chessKnight(string cell)
+        {
+            char cfirst = cell[0];
+            int first = cell[0];
+            int second = int.Parse(cell[1].ToString());
+            switch (cfirst)
+            {
+                case 'a':
+                    first = 1;
+                    break;
+                case 'b':
+                    first = 2;
+                    break;
+                case 'c':
+                    first = 3;
+                    break;
+                case 'd':
+                    first = 4;
+                    break;
+                case 'e':
+                    first = 4;
+                    break;
+                case 'f':
+                    first = 3;
+                    break;
+                case 'g':
+                    first = 2;
+                    break;
+                case 'h':
+                    first = 1;
+                    break;
+                default:
+                    break;
+            }
+            switch (second)
+            {
+                case 8:
+                    second = 1;
+                    break;
+                case 7:
+                    second = 2;
+                    break;
+                case 6:
+                    second = 3;
+                    break;
+                case 5:
+                    second = 4;
+                    break;
+                default:
+                    break;
+            }
+            int result = 0;
+            if (first == 3 && second > 1 || second == 3 && first > 1)
+                result = first * second;
+            else
+                result = first + second;
+            return result;
+        }
+        int deleteDigit(int n)
+        {
+            string digits = n.ToString();
+            string result = "";
+            int currentIndex = 0;
+            bool found = false;
+            int previous = -1;
+            int current = -1;
+            while (currentIndex < digits.Length && !found)
+            {
+                current = int.Parse(digits[currentIndex].ToString());
+                if (previous != -1)
+                {
+                    if (current > previous)
+                    {
+                        result = result.Substring(0, result.Length - 1);
+                        result += digits.Substring(currentIndex, digits.Length - currentIndex);
+                        return int.Parse(result);
+                    }
+                }
+                result += current;
+                previous = current;
+                currentIndex++;
+            }
+            return int.Parse(n.ToString().Substring(0, digits.Length - 1));
+        }
+        /// <summary>
+        /// Solutions to Land of Logic (Intro)
+        /// </summary>
+        string longestWord(string text)
+        {
+            List<string> words = new List<string>();
+            string temp = "";
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (char.IsLetter(text[i]))
+                {
+                    temp += text[i];
+                    if (text.Length == i)
+                    {
+                        words.Add(temp);
+                    }
+                }
+                else
+                {
+                    words.Add(temp);
+                }
+            }
+            int highest = 0;
+            string result = "";
+            foreach (string item in words)
+            {
+                if (highest < item.Length)
+                {
+                    highest = item.Length;
+                    result = item;
+                }
+            }
+            return result;
+        }
+        bool validTime(string time)
+        {
+            string[] times = time.Split(':');
+            if (int.Parse(times[0]) < 24 && int.Parse(times[1]) < 60)
+            {
+                return true;
+            }
+            return false;
+        }
+        int sumUpNumbers(string inputString)
+        {
+            int result = 0;
+            string current = "";
+            for (int i = 0; i < inputString.Length; i++)
+            {
+                if (char.IsDigit(inputString[i]))
+                {
+                    current += inputString[i];
+                    if (i == inputString.Length - 1)
+                    {
+                        result += int.Parse(current);
+                    }
+                }
+                else
+                {
+                    if (current.Length > 0)
+                        result += int.Parse(current);
+                    current = "";
+                }
+            }
+            return result;
+        }
+        int differentSquares(int[][] matrix)
+        {
+            List<int[][]> uniqueSnowFlakes = new List<int[][]>();
+            List<int[][]> notUniqueSnowFlakes = new List<int[][]>();
+            int[][] temp = new int[2][];
+            for (int y = 0; y < matrix.Length - 1; y++)
+            {
+                for (int x = 0; x < matrix[0].Length - 1; x++)
+                {
+                    temp = new int[2][];
+                    temp[0] = new int[2];
+                    temp[1] = new int[2];
+                    temp[0][0] = matrix[y][x];
+                    temp[0][1] = matrix[y][x + 1];
+                    temp[1][0] = matrix[y + 1][x];
+                    temp[1][1] = matrix[y + 1][x + 1];
+                    notUniqueSnowFlakes.Add(temp);
+                }
+            }
+            foreach (var item in notUniqueSnowFlakes)
+            {
+                bool isUnique = true;
+                foreach (int[][] unique in uniqueSnowFlakes)
+                {
+                    if (unique[0][0] == item[0][0] && unique[0][1] == item[0][1] &&
+                        unique[1][0] == item[1][0] && unique[1][1] == item[1][1])
+                    {
+                        isUnique = false;
+                        break;
+                    }
+                }
+                if (isUnique)
+                {
+                    uniqueSnowFlakes.Add(item);
+                }
+            }
+            return uniqueSnowFlakes.Count;
+        }
+        int digitsProduct(int product)
+        {
+            //Ugly code just brute forceing no fun but works 
+            for (int i = 1; i < 9999; i++)
+            {
+                string temp = i.ToString().Substring(1, i.ToString().Length - 1);
+                int current = int.Parse(i.ToString()[0].ToString());
+                foreach (char tmp in temp)
+                {
+                    current *= int.Parse(tmp.ToString());
+                }
+                Console.WriteLine(current);
+                if (current == product)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        string[] fileNaming(string[] names)
+        {
+            List<string> newNames = new List<string>();
+            int counter = 0;
+            for (int i = 0; i < names.Length; i++)
+            {
+                counter = 0;
+                string current = names[i];
+                while (true)
+                {
+                    if (newNames.Contains(current))
+                    {
+                        counter++;
+                        current = names[i] + "(" + counter + ")";
+                    }
+                    else
+                    {
+                        newNames.Add(current);
+                        break;
+                    }
+                }
+            }
+            return newNames.ToArray();
+        }
+        string messageFromBinaryCode(string code)
+        {
+            List<byte> bytes = new List<byte>();
+            for (int i = 0; i < code.Length; i += 8)
+            {
+                string temp = code.Substring(i, 8);
+                bytes.Add(Convert.ToByte(temp, 2));
+            }
+            return Encoding.ASCII.GetString(bytes.ToArray());
+        }
+        int[][] spiralNumbers(int n)
+        {
+            int[][] result = new int[n][];
+            int count = 1;
+            bool right = true;
+            bool left = false;
+            bool down = false;
+            bool up = false;
+
+            for (int i = 0; i < n; i++)
+            {
+                result[i] = new int[n];
+            }
+            int x = 0;
+            int y = 0;
+            int xMin = 0;
+            int yMin = 0;
+            int xMax = n - 1;
+            int yMax = n - 1;
+
+            while (count - 1 != n * n)
+            {
+                if (right)
+                {
+                    for (y = yMin; y <= yMax; y++)
+                    {
+                        result[yMin][y] = count;
+                        count++;
+                    }
+                    xMin++;
+                    right = false;
+                    down = true;
+                }
+                else if (down)
+                {
+                    for (x = xMin; x <= xMax; x++)
+                    {
+                        result[x][yMax] = count;
+                        count++;
+                    }
+                    yMax--;
+                    down = false;
+                    left = true;
+                }
+                else if (left)
+                {
+                    for (y = yMax; y >= yMin; y--)
+                    {
+                        result[xMax][y] = count;
+                        count++;
+                    }
+                    xMax--;
+                    left = false;
+                    up = true;
+                }
+                else if (up)
+                {
+                    for (x = xMax; x >= xMin; x--)
+                    {
+                        result[x][yMin] = count;
+                        count++;
+                    }
+                    yMin++;
+                    up = false;
+                    right = true;
+                }
+
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        Console.Write(result[i][j] + " ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+            return result;
+        }
+        bool sudoku(int[][] grid)
+        {
+            List<List<int>> vertical = new List<List<int>>(9);
+            List<List<int>> horizontal = new List<List<int>>(9);
+            List<List<int>> boxes = new List<List<int>>(9);
+            for (int i = 0; i < 9; i++)
+            {
+                horizontal.Add(new List<int>());
+            }
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                List<int> temp = new List<int>();
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    temp.Add(grid[i][j]);
+                    horizontal[j].Add(grid[i][j]);
+                }
+                vertical.Add(temp);
+            }
+            foreach (List<int> item in horizontal)
+            {
+                List<int> temp = new List<int>();
+                foreach (int item2 in item)
+                {
+                    if (temp.Contains(item2))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        temp.Add(item2);
+                    }
+                }
+            }
+
+            foreach (List<int> item in vertical)
+            {
+                List<int> temp = new List<int>();
+                foreach (int item2 in item)
+                {
+                    if (temp.Contains(item2))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        temp.Add(item2);
+                    }
+                }
+            }
+
+            List<int>[] box = new List<int>[9];
+            for (int i = 0; i < 9; i++)
+            {
+                box[i] = new List<int>();
+            }
+            for (int x = 0; x < 9; x++)
+            {
+                if (x <= 2)
+                {
+                    box[0].Add(vertical[0][x]);
+                    box[0].Add(vertical[1][x]);
+                    box[0].Add(vertical[2][x]);
+                    box[1].Add(vertical[3][x]);
+                    box[1].Add(vertical[4][x]);
+                    box[1].Add(vertical[5][x]);
+                    box[2].Add(vertical[6][x]);
+                    box[2].Add(vertical[7][x]);
+                    box[2].Add(vertical[8][x]);
+                }
+                else if (x <= 5)
+                {
+                    box[3].Add(vertical[0][x]);
+                    box[3].Add(vertical[1][x]);
+                    box[3].Add(vertical[2][x]);
+                    box[4].Add(vertical[3][x]);
+                    box[4].Add(vertical[4][x]);
+                    box[4].Add(vertical[5][x]);
+                    box[5].Add(vertical[6][x]);
+                    box[5].Add(vertical[7][x]);
+                    box[5].Add(vertical[8][x]);
+                }
+                else
+                {
+                    box[6].Add(vertical[0][x]);
+                    box[6].Add(vertical[1][x]);
+                    box[6].Add(vertical[2][x]);
+                    box[7].Add(vertical[3][x]);
+                    box[7].Add(vertical[4][x]);
+                    box[7].Add(vertical[5][x]);
+                    box[8].Add(vertical[6][x]);
+                    box[8].Add(vertical[7][x]);
+                    box[8].Add(vertical[8][x]);
+                }
+            }
+            foreach (var item in box)
+            {
+                boxes.Add(item);
+            }
+
+            foreach (List<int> item in boxes)
+            {
+                List<int> temp = new List<int>();
+                foreach (int item2 in item)
+                {
+                    if (temp.Contains(item2))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        temp.Add(item2);
+                    }
+                }
+            }
+            return true;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
