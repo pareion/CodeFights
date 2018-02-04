@@ -10,10 +10,31 @@ namespace CodeFight
         /// <summary>
         /// https://codefights.com/arcade/intro/level-10
         /// This is the solution to the Arcade challenges from 1 to 60
-        /// 
-        /// 
         /// Solutions to Edge of the Ocean (Intro)
         /// </summary>
+        int add(int param1, int param2)
+        {
+            return param1 + param2;
+        }
+        int centuryFromYear(int year)
+        {
+            if (year % 100 == 0)
+                return year / 100;
+            else
+                return (year + (100 - year % 100)) / 100;
+        }
+        bool checkPalindrome(string inputString)
+        {
+            int length = inputString.Length - 1;
+            for (int i = 0; i <= length / 2; i++)
+            {
+                if (inputString[i] != inputString[length - i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         int adjacentElementsProduct(int[] inputArray)
         {
             int highest = -1000;
