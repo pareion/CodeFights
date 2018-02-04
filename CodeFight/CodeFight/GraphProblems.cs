@@ -9,7 +9,7 @@ namespace CodeFight
         /// <summary>
         /// https://codefights.com/arcade/graphs-arcade/kingdom-roads
         /// 
-        /// Solution to the first challenge of the Kingdom Roads from codefights
+        /// Solution to the graph challenges of the Kingdom Roads from codefights
         /// </summary>
         /// <param name="roadRegister"></param>
         /// <returns></returns>
@@ -30,13 +30,6 @@ namespace CodeFight
             }
             return true;
         }
-        /// <summary>
-        /// https://codefights.com/arcade/graphs-arcade/kingdom-roads
-        /// 
-        /// Solution to the second challenge of the Kingdom Roads from codefights
-        /// </summary>
-        /// <param name="roadRegister"></param>
-        /// <returns></returns>
         int[][] roadsBuilding(int cities, int[][] roads)
         {
             int[][] newRoads = new int[(cities * (cities - 1)) / 2][];
@@ -77,13 +70,6 @@ namespace CodeFight
             Array.Copy(newRoads, result, counter);
             return result;
         }
-        /// <summary>
-        /// https://codefights.com/arcade/graphs-arcade/kingdom-roads
-        /// 
-        /// Solution to the third challenge of the Kingdom Roads from codefights
-        /// </summary>
-        /// <param name="roadRegister"></param>
-        /// <returns></returns>
         bool efficientRoadNetwork(int n, int[][] roads)
         {
             if (n == 1)
@@ -139,13 +125,6 @@ namespace CodeFight
             }
             return true;
         }
-        /// <summary>
-        /// https://codefights.com/arcade/graphs-arcade/kingdom-roads
-        /// 
-        /// Solution to the fourth challenge of the Kingdom Roads from codefights
-        /// </summary>
-        /// <param name="roadRegister"></param>
-        /// <returns></returns>
         bool[][][] financialCrisis(bool[][] roadRegister)
         {
             bool[][][] result = new bool[roadRegister[0].Length][][];
@@ -179,53 +158,135 @@ namespace CodeFight
             }
             return result;
         }
-   
         bool namingRoads(int[][] roads)
         {
-            
-            Dictionary<int, int[]> cityRoadLookUp = new Dictionary<int, int[]>();
-            for (int road = 0; road < roads.Length; road++)
+            int[][] result = new int[roads.Length][];
+            for (int i = 0; i < roads.Length; i++)
             {
-                if (!cityRoadLookUp.ContainsKey(roads[road][0]))
-                {
-                    cityRoadLookUp.Add(roads[road][0], new int[roads.Length]);
-                }
-                if (!cityRoadLookUp.ContainsKey(roads[road][1]))
-                {
-                    cityRoadLookUp.Add(roads[road][1], new int[roads.Length]);
-                }
-
-                cityRoadLookUp[roads[road][0]][(roads[road][2])] = (roads[road][2]);
-                cityRoadLookUp[roads[road][1]][(roads[road][2])] = (roads[road][2]);
-
-                
+                result[roads[i][2]] = roads[i];
             }
-
-            for (int x = 0; x < roads.Length; x++)
+            List<int> previous = new List<int>();
+            foreach (var item in result)
             {
-                try
+                if (previous.Contains(item[0]) || previous.Contains(item[1]))
                 {
-                        if (cityRoadLookUp[roads[x][0]][roads[x][2] - 1] == roads[x][2] - 1)
-                        {
-                            return false;
-                        }
-                 
-                        if (cityRoadLookUp[roads[x][1]][roads[x][2] + 1] == roads[x][2] + 1)
-                        {
-                            return false;
-                        }
-                    
+                    return false;
                 }
-                catch (Exception)
+                else
                 {
-                    
+                    previous.Clear();
+                    previous.Add(item[0]);
+                    previous.Add(item[1]);
                 }
-                
             }
-            
             return true;
-
         }
+        bool[][] greatRenaming(bool[][] roadRegister)
+        {
+            bool[][] result = new bool[roadRegister.Length][];
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = new bool[roadRegister[i].Length];
+            }
+            for (int x = 0; x < roadRegister.Length; x++)
+            {
+                for (int y = 0; y < roadRegister[x].Length; y++)
+                {
+                    int tempX = x;
+                    int tempY = y;
+                    if (roadRegister[x][y] == true)
+                    {
+                        if (x == roadRegister.Length - 1)
+                        {
+                            tempX = 0;
+                        }
+                        else
+                        {
+                            tempX++;
+                        }
+                        if (y == roadRegister[x].Length - 1)
+                        {
+                            tempY = 0;
+                        }
+                        else
+                        {
+                            tempY++;
+                        }
+                        result[tempX][tempY] = true;
+                    }
+                }
+            }
+            return result;
+        }
+        //TODO not finished
+        int[] citiesConquering(int n, int[][] roads)
+        {
+            int[] result = new int[n];
+
+            bool newCities = true;
+            List<int> singles = new List<int>();
+            List<int> removeThis = new List<int>();
+
+            int count = 1;
+            int previous = 0;
+            while (newCities)
+            {
+                singles = new List<int>();
+                for (int i = 0; i < roads.Length; i++)
+                {
+                    if (!removeThis.Contains(roads[i][0]))
+                    {
+                        if (singles.Contains(roads[i][0]))
+                        {
+                            removeThis.Add(roads[i][0]);
+                        }
+                        else
+                        {
+                            singles.Add(roads[i][0]);
+                        }
+                    }
+                    if (!removeThis.Contains(roads[i][1]))
+                    {
+                        if (singles.Contains(roads[i][1]))
+                        {
+                            removeThis.Add(roads[i][1]);
+                            singles.Remove(roads[i][1]);
+                        }
+                        else
+                        {
+                            singles.Add(roads[i][1]);
+                        }
+                    }
+                }
+                if (removeThis.Count != previous)
+                {
+                    foreach (var item in removeThis)
+                    {
+                        if (result[item] == 0)
+                        {
+
+                            result[item] = count;
+                        }
+                    }
+                    count++;
+                    previous = removeThis.Count;
+                }
+                else
+                {
+                    for (int x = 0; x < singles.Count; x++)
+                    {
+                        if (result[singles[x]] == 0)
+                        {
+                            result[singles[x]] = -1;
+                        }
+                    }
+                    newCities = false;
+                }
+            }
+            return result;
+        }
+
+
 
     }
 }
