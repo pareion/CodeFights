@@ -1568,6 +1568,20 @@ namespace CodeFight
             }
             return true;
         }
+        int countWays(int n, int k)
+        {
+            int a = n - k + 1;
+            int result = 0;
+            for (int i = a; i > 0; i--)
+            {
+                result += a;
+                a--;
+            }
+            return result;
+        }
+
+
+
 
 
 

@@ -218,75 +218,154 @@ namespace CodeFight
             }
             return result;
         }
-        //TODO not finished
         int[] citiesConquering(int n, int[][] roads)
         {
+            bool[] checkIfConquered = new bool[n];
             int[] result = new int[n];
-
-            bool newCities = true;
-            List<int> singles = new List<int>();
-            List<int> removeThis = new List<int>();
-
+            Dictionary<int, int> counter = new Dictionary<int, int>();
+            bool conqueredNewCities = true;
             int count = 1;
-            int previous = 0;
-            while (newCities)
+            while (conqueredNewCities)
             {
-                singles = new List<int>();
+                counter = new Dictionary<int, int>();
                 for (int i = 0; i < roads.Length; i++)
                 {
-                    if (!removeThis.Contains(roads[i][0]))
+                    if (checkIfConquered[roads[i][0]] == false && checkIfConquered[roads[i][1]] == false)
                     {
-                        if (singles.Contains(roads[i][0]))
+                        if (!counter.ContainsKey(roads[i][0]))
                         {
-                            removeThis.Add(roads[i][0]);
+                            counter.Add(roads[i][0], 1);
                         }
                         else
                         {
-                            singles.Add(roads[i][0]);
+                            counter[roads[i][0]] += 1;
                         }
-                    }
-                    if (!removeThis.Contains(roads[i][1]))
-                    {
-                        if (singles.Contains(roads[i][1]))
+                        if (!counter.ContainsKey(roads[i][1]))
                         {
-                            removeThis.Add(roads[i][1]);
-                            singles.Remove(roads[i][1]);
+                            counter.Add(roads[i][1], 1);
                         }
                         else
                         {
-                            singles.Add(roads[i][1]);
+                            counter[roads[i][1]] += 1;
                         }
                     }
                 }
-                if (removeThis.Count != previous)
+                conqueredNewCities = false;
+                for (int i = 0; i < n; i++)
                 {
-                    foreach (var item in removeThis)
+                    if (checkIfConquered[i] != true)
                     {
-                        if (result[item] == 0)
+                        if (counter.ContainsKey(i))
                         {
-
-                            result[item] = count;
+                            if (counter[i] == 1)
+                            {
+                                conqueredNewCities = true;
+                                checkIfConquered[i] = true;
+                                result[i] = count;
+                            }
+                        }
+                        else
+                        {
+                            conqueredNewCities = true;
+                            checkIfConquered[i] = true;
+                            result[i] = count;
                         }
                     }
-                    count++;
-                    previous = removeThis.Count;
                 }
-                else
+                count++;
+            }
+            for (int i = 0; i < result.Length; i++)
+            {
+                if (result[i] == 0)
                 {
-                    for (int x = 0; x < singles.Count; x++)
-                    {
-                        if (result[singles[x]] == 0)
-                        {
-                            result[singles[x]] = -1;
-                        }
-                    }
-                    newCities = false;
+                    result[i] = -1;
                 }
             }
             return result;
         }
+        bool[][] mergingCities(bool[][] roadRegister)
+        {
+            bool[][] result;
+            if (roadRegister.Length < 1)
+            {
+                return roadRegister;
+            }
+            List<int> merge = new List<int>();
+            for (int i = 0; i <= roadRegister.Length + 1 / 2; i += 2)
+            {
+                try
+                {
+                    if (roadRegister[i][i + 1] == true)
+                    {
+                        merge.Add(i);
+                    }
+                }
+                catch (Exception)
+                {
 
+                }
+            }
+            result = new bool[roadRegister.Length - merge.Count][];
+            int counter = -1;
+            for (int j = 0; j < roadRegister.Length; j++)
+            {
+                counter++;
+                result[counter] = new bool[roadRegister.Length - merge.Count];
+                if (merge.Contains(j))
+                {
+                    int count = 0;
+                    for (int i = 0; i < roadRegister[j].Length; i++)
+                    {
+                        if (i == j)
+                        {
+                            result[counter][count] = false;
+                            i++;
+                        }
+                        else if (merge.Contains(i))
+                        {
+                            if (roadRegister[j][i] == true || roadRegister[j + 1][i] == true || roadRegister[j][i + 1] == true || roadRegister[j + 1][i + 1] == true)
+                            {
+                                result[counter][count] = true;
+                            }
+                            else
+                                result[counter][count] = false;
+                            i++;
+                        }
+                        else if (roadRegister[j][i] == true || roadRegister[j + 1][i] == true)
+                        {
+                            result[counter][count] = true;
+                        }
+                        else
+                            result[counter][count] = false;
+                        count++;
 
+                    }
+                    j++;
+                }
+                else
+                {
+                    int count = 0;
+                    for (int i = 0; i < roadRegister.Length; i++)
+                    {
+                        if (!merge.Contains(i))
+                        {
+                            result[counter][count] = roadRegister[j][i];
+                            count++;
+                        }
+                        else
+                        {
+                            if (roadRegister[j][i] == true || roadRegister[j][i + 1] == true)
+                            {
+                                result[counter][count] = true;
+                                count++;
+                                i++;
+                            }
+                        }
+                    }
+                }
+            }
+            return result;
+        }
 
     }
 }
