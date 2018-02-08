@@ -366,6 +366,52 @@ namespace CodeFight
             }
             return result;
         }
+        bool[][] livingOnTheRoads(bool[][] roadRegister)
+        {
+            List<Tuple<int, int>> roads = new List<Tuple<int, int>>();
 
+            for (int x = 0; x < roadRegister.Length; x++)
+            {
+                for (int y = x; y < roadRegister.Length; y++)
+                {
+                    if (roadRegister[x][y])
+                    {
+                        roads.Add(new Tuple<int, int>(x, y));
+                    }
+                }
+            }
+
+            bool[][] result = new bool[roads.Count][];
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = new bool[roads.Count];
+            }
+            for (int i = 0; i < roads.Count; i++)
+            {
+                int fromA = roads[i].Item1;
+                int toA = roads[i].Item2;
+                for (int j = 0; j < roads.Count; j++)
+                {
+                    int fromB = roads[j].Item1;
+                    int toB = roads[j].Item2;
+                    if (i != j)
+                    {
+                        if (fromA == toB || fromA == fromB || fromB == toA || fromB == fromA || toB == toA)
+                        {
+                            result[i][j] = true;
+                            result[j][i] = true;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+        /// <summary>
+        /// https://codefights.com/arcade/graphs-arcade/kingdom-roads
+        /// 
+        /// Solution to the graph challenges of Contours of Everything from codefights
+        /// </summary>
+        /// <param name="roadRegister"></param>
+        /// <returns></returns>
     }
 }
