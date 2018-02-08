@@ -413,5 +413,50 @@ namespace CodeFight
         /// </summary>
         /// <param name="roadRegister"></param>
         /// <returns></returns>
+        bool isButterfly(bool[][] adj)
+        {
+            Dictionary<int, int> result = new Dictionary<int, int>();
+            for (int i = 0; i < adj.Length; i++)
+            {
+                result.Add(i, 0);
+                for (int j = 0; j < adj.Length; j++)
+                {
+                    if (adj[i][j])
+                    {
+                        result[i] += 1;
+                    }
+                    if (adj[i][j] == true && i == j)
+                    {
+                        return false;
+                    }
+                }
+            }
+            int fourCounter = 0;
+            int twoCounter = 0;
+            foreach (var item in result)
+            {
+                if (item.Value == 2)
+                {
+                    twoCounter++;
+                }
+                else if (item.Value == 4)
+                {
+                    fourCounter++;
+                }
+            }
+            if (fourCounter == 1 && twoCounter == 4)
+            {
+                return true;
+            }
+            return false;
+        }
+        int countStars(bool[][] adj)
+        {
+
+        }
+
+
+
+
     }
 }
