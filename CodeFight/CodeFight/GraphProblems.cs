@@ -452,8 +452,230 @@ namespace CodeFight
         }
         int countStars(bool[][] adj)
         {
+            List<List<int>> result = new List<List<int>>();
+            int starCounter = 0;
+            List<List<int>> starHolder = new List<List<int>>();
+            for (int x = 0; x < adj.Length; x++)
+            {
+                for (int y = x; y < adj.Length; y++)
+                {
+                    if (adj[x][y])
+                    {
+                        starCounter = 0;
+                        starHolder.Clear();
+                        foreach (List<int> stars in result)
+                        {
+                            if (stars.Contains(x) || stars.Contains(y))
+                            {
+                                starCounter++;
+                                starHolder.Add(stars);
+                            }
+                        }
+                        switch (starCounter)
+                        {
+                            case 0:
+                                result.Add(new List<int>() { x, y });
+                                break;
+                            case 1:
+                                starHolder[0].Add(x);
+                                starHolder[0].Add(y);
+                                break;
+                            default:
+                                List<int> newStar = new List<int>();
+                                foreach (var item in starHolder)
+                                {
+                                    foreach (var item2 in item)
+                                    {
+                                        newStar.Add(item2);
+                                    }
+                                    result.Remove(item);
+                                }
+                                result.Add(newStar);
+                                break;
+                        }
+                    }
+                }
+            }
+            int count = 0;
+            bool acceptedStar = false;
+            foreach (List<int> item in result)
+            {
+                foreach (int item2 in item)
+                {
+                    acceptedStar = false;
+                    if (item.FindAll(x => x == item2).Count == 1 || item.FindAll(x => x == item2).Count == item.Count / 2)
+                    {
+                        acceptedStar = true;
+                    }
+                }
+                if (acceptedStar)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+        bool isWheel(bool[][] adj)
+        {
+            List<int> result = new List<int>();
+            for (int x = 0; x < adj.Length; x++)
+            {
+                result.Add(0);
+                for (int y = 0; y < adj.Length; y++)
+                {
+                    if (adj[x][y] && x == y)
+                        return false;
+                    if (adj[x][y])
+                    {
+                        result[x] += 1;
+                    }
+                }
+            }
+            int count3 = 0;
+            int countLength = 0;
+            foreach (var item in result)
+            {
+                if (item == 3)
+                {
+                    count3++;
+                }
+                else if (item == adj.Length - 1)
+                {
+                    countLength++;
+                }
+            }
+            if (count3 == adj.Length - 1 && countLength == 1 || count3 == adj.Length && adj.Length == 4)
+            {
+                return true;
+            }
+            return false;
+        }
+        bool isBook(bool[][] adj)
+        {
+
+            List<int> result = new List<int>();
+            for (int x = 0; x < adj.Length; x++)
+            {
+                result.Add(0);
+                for (int y = 0; y < adj.Length; y++)
+                {
+                    if (adj[x][y] && x == y)
+                        return false;
+                    if (adj[x][y])
+                    {
+                        result[x] += 1;
+                    }
+                }
+            }
+            int count2 = 0;
+            int countLength = 0;
+            foreach (var item in result)
+            {
+                if (item == 2)
+                {
+                    count2++;
+                }
+                else if (item == adj.Length - 1)
+                {
+                    countLength++;
+                }
+            }
+            if (count2 == adj.Length - 2 && countLength == 2 || adj.Length == 3 && count2 == 3)
+            {
+                return true;
+            }
+            return false;
 
         }
+        bool isBull(bool[][] adj)
+        {
+            List<int> result = new List<int>();
+            for (int x = 0; x < adj.Length; x++)
+            {
+                result.Add(0);
+                for (int y = 0; y < adj.Length; y++)
+                {
+                    if (adj[x][y] && x == y)
+                        return false;
+                    if (adj[x][y])
+                    {
+                        result[x] += 1;
+                    }
+                }
+            }
+            int count1 = 0;
+            int count2 = 0;
+            int count3 = 0;
+            int count4 = 0;
+            foreach (var item in result)
+            {
+                if (item == 1)
+                {
+                    count1++;
+                }
+                else if (item == 2)
+                {
+                    count2++;
+                }
+                else if (item == 3)
+                {
+                    count3++;
+                }
+                else if (item == 4)
+                {
+                    count4++;
+                }
+            }
+            if (count3 == 1 && count4 == 0 && count2 == 3 && count1 == 1)
+            {
+                int count = 0;
+                int index3 = 0;
+                for (int x = 0; x < adj.Length; x++)
+                {
+                    count = 0;
+                    for (int y = 0; y < adj.Length; y++)
+                    {
+                        if (adj[x][y])
+                        {
+                            count++;
+                        }
+                    }
+                    if (count == 3)
+                    {
+                        index3 = x;
+                        break;
+                    }
+                }
+                List<int> pointsToIndex3 = new List<int>();
+                for (int y = 0; y < adj.Length; y++)
+                {
+                    if (adj[y][index3])
+                    {
+                        pointsToIndex3.Add(y);
+                    }
+                }
+                for (int x = 0; x < adj.Length; x++)
+                {
+                    foreach (int y in pointsToIndex3)
+                    {
+                        if (adj[x][index3] && adj[x][y] && x != index3)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            if (count1 == 2 && count2 == 2 && count3 == 0 && count4 == 1 || count1 == 2 && count2 == 1 &&
+                count3 == 2 && count4 == 0
+               )
+            {
+                return true;
+            }
+            return false;
+        }
+        
+
 
 
 
