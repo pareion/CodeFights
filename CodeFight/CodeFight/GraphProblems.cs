@@ -674,7 +674,68 @@ namespace CodeFight
             }
             return false;
         }
-        
+        bool isTadpole(bool[][] adj)
+        {
+            List<int[]> roads = new List<int[]>();
+            List<int> result = new List<int>();
+            for (int x = 0; x < adj.Length; x++)
+            {
+                result.Add(0);
+                roads.Add(new int[2]);
+                for (int y = 0; y < adj.Length; y++)
+                {
+                    if (adj[x][y] && x == y)
+                        return false;
+                    if (adj[x][y])
+                    {
+                        result[x] += 1;
+                        roads[x] = new int[] { x, y };
+                    }
+                }
+            }
+            int count1 = 0;
+            int count2 = 0;
+            int count3 = 0;
+            int index3 = 0;
+            for (int i = 0; i < result.Count; i++)
+            {
+                if (result[i] == 1)
+                {
+                    count1++;
+                }
+                else if (result[i] == 2)
+                {
+                    count2++;
+                }
+                else if (result[i] == 3)
+                {
+                    index3 = i;
+                    count3++;
+                }
+                else if (result[i] == 4)
+                {
+                    return false;
+                }
+            }
+            if (count3 != 1)
+            {
+                return false;
+            }
+
+            List<int[]> threeRoadIndexes = new List<int[]>();
+
+            foreach (var item in roads)
+            {
+                if (item[0] == index3 || item[1] == index3)
+                {
+                    threeRoadIndexes.Add(item);
+                }
+            }
+            
+            // hvis 2 af vejene føre tilbage til start punktet true
+            // den sidste hvis det ikke er en lige linje false
+        }
+
 
 
 
