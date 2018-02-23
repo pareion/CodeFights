@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
 using System.Text;
 
 namespace CodeFight
 {
-    class Core
+    class Core<T>
     {
         /// <summary>
         /// Solutions to Intro Gates
@@ -105,6 +107,13 @@ namespace CodeFight
             }
             return minutes;
         }
+        /// <summary>
+        /// Solutions to At the Crossroad
+        /// </summary>
+        /// <param name="experience"></param>
+        /// <param name="threshold"></param>
+        /// <param name="reward"></param>
+        /// <returns></returns>
         bool reachNextLevel(int experience, int threshold, int reward)
         {
             if (reward + experience >= threshold)
@@ -216,19 +225,69 @@ namespace CodeFight
                 return new int[] { 31 };
             return new int[0];
         }
-        int killKthBit(int n, int k)
+        /// <summary>
+        /// Solutions to Corner of 0s and 1s
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        int arrayPacking(int[] a)
         {
-            int.Parse(Convert.ToString(2, 37));
+            string current = "";
+            for (int i = a.Length-1; i >= 0; i--)
+            {
+                string temp = Convert.ToString(a[i], 2);
+                int need = 8 - temp.Length;
+                for (int j = 0; j < need; j++)
+                {
+                    temp = "0" + temp;
+                }
+                current += temp;
+            }
+            return Convert.ToInt32(current, 2);
+        }
+        int rangeBitCount(int a, int b)
+        {
+            int current = 0;
+            for (int i = a; i <= b; i++)
+            {
+                string temp = Convert.ToString(i, 2);
+                foreach (var item in temp)
+                {
+                    current += int.Parse(item.ToString());
+                }
+            }
+            return current;
+        }
+        int mirrorBits(int a)
+        {
+            string current = "";
+            foreach (var item in Convert.ToString(a, 2).Reverse())
+            {
+                current += item;
+            }
+            return Convert.ToInt32(current, 2);
+        }
+        int secondRightmostZeroBit(int n)
+        {
+            return (int)Math.Pow(2, (new String(Convert.ToString(n, 2).Reverse().ToArray()).IndexOf("0", (new String(Convert.ToString(n, 2).Reverse().ToArray()).IndexOf("0")) + 1)));
+        }
+        int swapAdjacentBits(int n)
+        {
+            return (n <= 0) ? n : ((Convert.ToInt32(Convert.ToString(n,2),2) & 0b10101010) >> 1) | (Convert.ToInt32(Convert.ToString(n, 2), 2) & 0b01010101) << 1;
         }
 
 
-
-
-
-
-
-
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
 }
+

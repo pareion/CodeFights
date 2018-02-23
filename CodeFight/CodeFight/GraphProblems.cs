@@ -731,7 +731,7 @@ namespace CodeFight
                     threeRoadIndexes.Add(item);
                 }
             }
-            
+            return false;
             // hvis 2 af vejene føre tilbage til start punktet true
             // den sidste hvis det ikke er en lige linje false
         }
