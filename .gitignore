@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /CodeFight/CodeFight/Challenges.cs
+/CodeFight/CodeFightPython
+/CodeFight/Kattis
