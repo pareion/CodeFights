@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace GoogleCodeJam
@@ -8,7 +9,38 @@ namespace GoogleCodeJam
         static void Main(string[] args)
         {
             var cases = Console.ReadLine();
-            
+
+            for (int i = 0; i < int.Parse(cases); i++)
+            {
+                var length = int.Parse(Console.ReadLine());
+
+                List<int> numList = new List<int>();
+                var numInput = Console.ReadLine().Split(' ');
+                foreach (var number in numInput)
+                {
+                    numList.Add(int.Parse(number));
+                }
+                
+                bool passed = false;
+                for (int y = 0; y < numList.Count-1; y++)
+                {
+                    if (numList[y] > numList[y + 1])
+                    {
+                        passed = false;
+                        Console.WriteLine("Case #{0}: {1}", i, y);
+                    }
+                }
+                if (passed)
+                {
+                    Console.WriteLine("Case #{0} OK", i);
+                }
+            }
+        }
+
+        public void SaveTheUniverseAgain()
+        {
+            var cases = Console.ReadLine();
+
             for (int i = 0; i < int.Parse(cases); i++)
             {
                 var input = Console.ReadLine().Split(' ');
@@ -22,7 +54,7 @@ namespace GoogleCodeJam
                     int damage = calcDamage(robotInstructions, preventLowerThan);
                     if (preventLowerThan >= damage)
                     {
-                        Console.WriteLine("Case #{0}: {1}", i+1, count);
+                        Console.WriteLine("Case #{0}: {1}", i + 1, count);
                         impossible = false;
                         break;
                     }
@@ -40,7 +72,7 @@ namespace GoogleCodeJam
                     }
                 }
                 if (impossible)
-                    Console.WriteLine("Case #{0}: IMPOSSIBLE", i+1);
+                    Console.WriteLine("Case #{0}: IMPOSSIBLE", i + 1);
             }
         }
 
