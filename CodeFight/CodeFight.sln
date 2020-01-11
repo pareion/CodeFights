@@ -5,11 +5,9 @@ VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeFight", "CodeFight\CodeFight.csproj", "{5597BF16-B353-4345-A9CD-3193FDF84A86}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CodeFightPython", "CodeFightPython\CodeFightPython.pyproj", "{01B7E209-1695-4D17-953A-564051595D53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleCodeJam", "GoogleCodeJam\GoogleCodeJam.csproj", "{0CA26A04-931C-4057-B7C3-DCA75342A9A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kattis", "Kattis\Kattis.csproj", "{E5B97AC1-4EB1-4F20-95F5-792C2FCB93C7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleCodeJam", "GoogleCodeJam\GoogleCodeJam.csproj", "{0CA26A04-931C-4057-B7C3-DCA75342A9A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codewars", "Codewars\Codewars.csproj", "{9E8C73D7-3E7E-408C-B257-929767AE48B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,16 +19,14 @@ Global
 		{5597BF16-B353-4345-A9CD-3193FDF84A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5597BF16-B353-4345-A9CD-3193FDF84A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5597BF16-B353-4345-A9CD-3193FDF84A86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01B7E209-1695-4D17-953A-564051595D53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01B7E209-1695-4D17-953A-564051595D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5B97AC1-4EB1-4F20-95F5-792C2FCB93C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5B97AC1-4EB1-4F20-95F5-792C2FCB93C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5B97AC1-4EB1-4F20-95F5-792C2FCB93C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5B97AC1-4EB1-4F20-95F5-792C2FCB93C7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0CA26A04-931C-4057-B7C3-DCA75342A9A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0CA26A04-931C-4057-B7C3-DCA75342A9A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CA26A04-931C-4057-B7C3-DCA75342A9A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CA26A04-931C-4057-B7C3-DCA75342A9A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E8C73D7-3E7E-408C-B257-929767AE48B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E8C73D7-3E7E-408C-B257-929767AE48B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E8C73D7-3E7E-408C-B257-929767AE48B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E8C73D7-3E7E-408C-B257-929767AE48B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

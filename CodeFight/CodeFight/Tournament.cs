@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CodeFight
 {
-    class Tournament
+    class TimeDifference
     {
         bool isEarlier(int[] time1, int[] time2)
         {
@@ -387,8 +387,6 @@ namespace CodeFight
         {
             return inputString.Substring(l, inputString.Length - l - r);
         }
-
-
 
 
 
